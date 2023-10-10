@@ -4,22 +4,12 @@ export const useStoreNotes = defineStore('storeNotes', {
   state: () => {
     return { 
         notes: [
-            {
-                id: 'id1',
-                content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.yyyyyyyyyyy  est reiciendis? Dolor vel labore error eius quibusdam odit repudiandae!'
-            },
-            {
-                id: 'id2',
-                content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.xxxxxxxxxxxxxxx  esodit repudiandae!'
-            }
-        ]
+        ],
+        feached: false
     }
   },
   actions: {
-    addNote(newNoteContent){
-    let currentDate = new Date().getTime()
-    let id = currentDate.toString()
-
+    addNote(newNoteContent,id){
     let note = {
         id: id,
         content: newNoteContent

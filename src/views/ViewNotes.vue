@@ -11,7 +11,6 @@
                 </button>
             </template>
         </AddEditNote>
-
        <Note v-for="note in storeNotes.notes"
               :key="note.id"
               :note="note"
@@ -30,9 +29,28 @@ const storeNotes = useStoreNotes()
 const newNote = ref('')
 const addEditNoteRef = ref(null)
 
+import axios from 'axios'
+const posts = ref([])
+
+async function addAllNotes() {
+    await axios
+      .get('https://jsonplaceholder.typicode.com/posts/')
+      .then((response) => {
+        posts.value = response.data
+      })
+posts.value.forEach((post) => {
+    storeNotes.addNote(post.body,post.id.toString())
+})
+storeNotes.feached = true
+}
+
+if(storeNotes.feached == false){
+    addAllNotes()
+}
+
 
 const addNote = () =>{
-    storeNotes.addNote(newNote.value)
+    storeNotes.addNote(newNote.value,new Date().getTime().toString())
     newNote.value = ''
     addEditNoteRef.value.focusTextarea()
 }
